@@ -18,7 +18,7 @@ create table privatestatus(
 
 
 create table phd_granting(
-	phd_granting BOOLEAN
+	phd_granting BOOLEAN primary key
 );
 
 
