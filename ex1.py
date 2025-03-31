@@ -30,7 +30,7 @@ def process_file():
     with ZipFile('enrollment.zip') as zf:
         with zf.open('enrollment.csv', 'r') as infile:
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
-            
+            next(reader)
             for row in reader:
                 (
                     country, countrycode, region, incomegroup, iau_id1, eng_name,
