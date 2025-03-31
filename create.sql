@@ -50,10 +50,14 @@ create table University(
 	latitude FLOAT,
 	longitude FLOAT ,
 	divisions INT,
-	phd_granting BOOLEAN not null references phd_granting(phd_granting),
-	private01 BOOLEAN not null references privatestatus(private01),
-	country varchar not null references country(country),
-	specialized BOOLEAN not null references specialized(specialized)
+	phd_granting BOOLEAN not null,
+	private01 BOOLEAN not null,
+	country varchar not null,
+	specialized BOOLEAN not null,
+	foreign key (phd_granting) references phd_granting(phd_granting),
+	foreign key (private01) references privatestatus(private01),
+	foreign key (country) references country(country),
+	foreign key (specialized) references specialized(specialized)
 );
 
 
