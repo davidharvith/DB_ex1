@@ -1,1 +1,8 @@
-drop table enrollment;
+DROP TABLE acceptence_data CASCADE;
+DROP TABLE enrollment CASCADE;
+DROP TABLE University CASCADE;
+DROP TABLE phd_granting CASCADE;
+DROP TABLE privatestatus CASCADE;
+DROP TABLE specialized CASCADE;
+DROP TABLE country CASCADE;
+DROP TABLE region CASCADE;
