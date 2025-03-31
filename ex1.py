@@ -56,8 +56,8 @@ def process_file():
 
     # Write unique values to CSV files
 
-    print(region_set)
-    print("country_set")
+    #print(region_set)
+    #print("country_set")
     writers["region"].writerows(region_set)
     writers["country"].writerows(country_set)
     writers["specialized"].writerows(specialized_set)
