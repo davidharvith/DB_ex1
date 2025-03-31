@@ -48,7 +48,7 @@ create table phd_granting(
 create table country(
 	 country varchar primary key,
 	 countrycode varchar not null,
-	 region varchar not null references region(regionname),
+	 region varchar not null references region(regionname)
 	 
 );
 
