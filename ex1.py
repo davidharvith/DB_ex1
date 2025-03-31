@@ -30,7 +30,13 @@ def process_file():
     with ZipFile('enrollment.zip') as zf:
         with zf.open('enrollment.csv', 'r') as infile:
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
-            next(reader)
+            
+            # Extract and write headers
+            headers = next(reader)  # Read the header row
+            
+            for name in table_names:
+                writers[name].writerow(headers)  # Write headers to each file
+
             for row in reader:
                 (
                     country, countrycode, region, incomegroup, iau_id1, eng_name,
@@ -55,9 +61,6 @@ def process_file():
                 acceptance_data_set.add((year, iau_id1, students5_estimated))
 
     # Write unique values to CSV files
-
-    #print(region_set)
-    #print("country_set")
     writers["region"].writerows(region_set)
     writers["country"].writerows(country_set)
     writers["specialized"].writerows(specialized_set)
@@ -74,6 +77,7 @@ def process_file():
     # Close all file handles
     for fh in file_handles.values():
         fh.close()
+
 
 # Return the table names in creation order
 def get_names():
