@@ -55,8 +55,9 @@ def process_file():
                 acceptance_data_set.add((year, iau_id1, students5_estimated))
 
     # Write unique values to CSV files
-    
+
     print(region_set)
+    print("country_set")
     writers["region"].writerows(region_set)
     writers["country"].writerows(country_set)
     writers["specialized"].writerows(specialized_set)
