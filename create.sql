@@ -26,34 +26,30 @@ create table University(
 	 latitude FLOAT,
 	 longitude FLOAT ,
 	 divisions INT,
-	 phd_granting VARBINARY not null,
-	 private01 VARBINARY not null,
-	 country varchar not null,
-	 specialized VARBINARY not null
-	 foreign key(phd_granting) references phd_granting(phd_granting),
-	 foreign key (specialized) references specialized(specialized),
-	 foreign key (private01) references privatestatus(private01),
-	 foreign key (country) references country(country)
+	 phd_granting BOOLEAN not null references phd_granting(phd_granting),
+	 private01 BOOLEAN not null references privatestatus(private01),
+	 country varchar not null references country(country),
+	 specialized BOOLEAN not null references specialized(specialized)
 );
 
 create table specialized(
-	specialized VARBINARY primary key
+	specialized BOOLEAN primary key
 );
 
 create table privatestatus(
-	private01 VARBINARY primary key
+	private01 BOOLEAN primary key
 );
 
 
 create table phd_granting(
-	phd_granting VARBINARY
+	phd_granting BOOLEAN
 );
 
 create table country(
 	 country varchar primary key,
 	 countrycode varchar not null,
-	 region varchar not null,
-	 foreign key (region) references region(regionname)
+	 region varchar not null references region(regionname),
+	 
 );
 
 create table region(
@@ -62,8 +58,8 @@ create table region(
 
 create table acceptence_data(
 	year INT,
-	iau_id1 varchar,
+	iau_id1 varchar references University(iau_id1),
 	students5_estimated INT,
 	primary key(year, iau_id1)
-	foreign key (iau_id1) references University(iau_id1)
+	
 );
