@@ -4,7 +4,7 @@ create table region(
 
 create table incomegroup(
 	incomegroup varchar(60) primary key
-)
+);
 
 create table country(
 	 countrycode varchar(3) primary key,
