@@ -1,5 +1,5 @@
-DROP TABLE if exstists acceptence_data CASCADE;
-DROP TABLE if exstists University CASCADE;
-DROP TABLE if exstists country CASCADE;
-DROP TABLE if exstists region CASCADE;
-DROP TABLE if exstists incomegroup CASCADE;
+DROP TABLE if exists acceptence_data CASCADE;
+DROP TABLE if exists University CASCADE;
+DROP TABLE if exists country CASCADE;
+DROP TABLE if exists region CASCADE;
+DROP TABLE if exists incomegroup CASCADE;
