@@ -24,10 +24,7 @@ create table University(
 	latitude FLOAT,
 	longitude FLOAT ,
 	divisions integer,
-	phd_granting BOOLEAN not null,
-	private01 BOOLEAN not null,
 	country varchar not null,
-	specialized BOOLEAN not null,
 	foreign key (country) references country(country)
 );
 
