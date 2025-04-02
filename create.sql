@@ -18,14 +18,18 @@ create table country(
 
 create table University(
 	iau_id1 varchar(60) primary key,
-	orig_name varchar(320) not null,
-	yrclosed integer,
+	eng_name varchar not null,
+	orig_name varchar not null,
 	foundedyr integer not null,
+	yrclosed integer,
+	private01 boolean not null,
 	latitude FLOAT,
-	longitude FLOAT ,
+	longitude FLOAT,
+	phd_granting boolean not null,
 	divisions integer,
-	country varchar not null,
-	foreign key (country) references country(country)
+	specialized boolean not null,
+	countrycode varchar(3) not null,
+	foreign key (countrycode) references country(countrycode)
 );
 
 
