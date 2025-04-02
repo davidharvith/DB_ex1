@@ -7,35 +7,27 @@ file_handles = {}
 writers = {}
 
 table_names = [
-    "region", "country", "specialized", "privatestatus",
-    "phd_granting", "enrollment", "University", "acceptence_data"
+    "region", "incomegroup", "country",
+     "University", "acceptence_data"
 ]
 
 # Open CSV writers for each table
 for name in table_names:
-    file_handles[name] = open(f"{name}.csv", "w", encoding="UTF8", newline="")
+    file_handles[name] = open(f"{name}.csv", "w", encoding="UTF8")
     writers[name] = csv.writer(file_handles[name], delimiter=",", quoting=csv.QUOTE_MINIMAL)
 
 # Track unique entries
-region_set = set()
-country_set = set()
-specialized_set = set()
-privatestatus_set = set()
-phd_granting_set = set()
-university_data = {}  # Stores last occurrence of a university
-
-acceptance_data_set = set()
+country_dict = {}
+incomegroup_dict = {}
+region_dict = {}
+university_dict = {}
+acceptance_data_dict = {}
 
 def process_file():
     with ZipFile('enrollment.zip') as zf:
         with zf.open('enrollment.csv', 'r') as infile:
             reader = csv.reader(TextIOWrapper(infile, 'utf-8'))
             
-            # Extract and write headers
-            headers = next(reader)  # Read the header row
-            
-            for name in table_names:
-                writers[name].writerow(headers)  # Write headers to each file
 
             for row in reader:
                 (
@@ -44,36 +36,31 @@ def process_file():
                     phd_granting, divisions, specialized, year, students5_estimated
                 ) = row
 
-                # Store latest university data (last occurrence in the file)
-                university_data[iau_id1] = (
-                    iau_id1, orig_name, yrclosed, foundedyr, latitude, longitude,
-                    divisions, phd_granting, private01, country, specialized
-                )
+                # Store unique country data
+                country_dict[countrycode] = [countrycode, country, incomegroup, region]
+                
+                # Store unique income group data
+                incomegroup_dict[incomegroup] = [incomegroup]
+                
+                # Store unique region data
+                region_dict[region] = [region]
+                
+                # Store latest university data
+                university_dict[iau_id1] = [
+                    iau_id1, eng_name, orig_name, foundedyr, yrclosed, private01, 
+                    latitude, longitude, phd_granting, divisions, specialized, countrycode
+                ]
+                
+                # Store unique enrollment data
+                acceptance_data_dict[(iau_id1, year)] = [iau_id1, year, students5_estimated]
 
-                # Track unique categorical values
-                region_set.add((region,))
-                country_set.add((country, countrycode, region))
-                specialized_set.add((specialized,))
-                privatestatus_set.add((private01,))
-                phd_granting_set.add((phd_granting,))
-
-                # Track unique acceptance data
-                acceptance_data_set.add((year, iau_id1, students5_estimated))
 
     # Write unique values to CSV files
-    writers["region"].writerows(region_set)
-    writers["country"].writerows(country_set)
-    writers["specialized"].writerows(specialized_set)
-    writers["privatestatus"].writerows(privatestatus_set)
-    writers["phd_granting"].writerows(phd_granting_set)
-
-    # Write University data (ensuring latest values are used)
-    for data in university_data.values():
-        writers["University"].writerow(data)
-
-    # Write acceptance data
-    writers["acceptence_data"].writerows(acceptance_data_set)
-
+    writers["region"].writerows(region_dict.values())
+    writers["country"].writerows(country_dict.values())
+    writers["incomegroup"].writerows(incomegroup_dict.values())
+    writers["University"].writerows(university_dict.values())
+    writers["acceptence_data"].writerows(acceptance_data_dict.values())
     # Close all file handles
     for fh in file_handles.values():
         fh.close()

@@ -1,73 +1,40 @@
 create table region(
-	regionname varchar primary key
+	regionname varchar(60) primary key
 );
 
+create table incomegroup(
+	incomegroup varchar(60) primary key
+)
+
 create table country(
-	 country varchar primary key,
-	 countrycode varchar not null,
-	 region varchar not null,
+	 countrycode varchar(3) primary key,
+	country varchar(60) unique not null,
+	 region varchar,
+	 incomegroup varchar,
+	 foreign key (incomegroup) references incomegroup(incomegroup),
 	 foreign key (region) references region(regionname)
 );
 
-create table specialized(
-	specialized BOOLEAN primary key
-);
-
-create table privatestatus(
-	private01 BOOLEAN primary key
-);
-
-
-create table phd_granting(
-	phd_granting BOOLEAN primary key
-);
-
-
-create table enrollment(
-	country varchar, 
-	countrycode varchar, 
-	region varchar, 
-	incomegroup varchar, 
-	iau_id1 varchar, 
-	eng_name varchar, 
-	orig_name varchar, 
-	foundedyr varchar, 
-	yrclosed varchar, 
-	private01 varchar, 
-	latitude varchar, 
-	longitude varchar, 
-	phd_granting varchar, 
-	divisions varchar, 
-	specialized varchar, 
-	year varchar, 
-	students5_estimated varchar
-);
 
 create table University(
-	iau_id1 varchar primary key,
-	orig_name varchar not null,
-	yrclosed INT,
-	foundedyr INT not null,
+	iau_id1 varchar(60) primary key,
+	orig_name varchar(320) not null,
+	yrclosed integer,
+	foundedyr integer not null,
 	latitude FLOAT,
 	longitude FLOAT ,
-	divisions INT,
+	divisions integer,
 	phd_granting BOOLEAN not null,
 	private01 BOOLEAN not null,
 	country varchar not null,
 	specialized BOOLEAN not null,
-	foreign key (phd_granting) references phd_granting(phd_granting),
-	foreign key (private01) references privatestatus(private01),
 	foreign key (country) references country(country),
-	foreign key (specialized) references specialized(specialized)
 );
 
 
-
-
-
 create table acceptence_data(
-	year INT,
+	year integer,
 	iau_id1 varchar references University(iau_id1),
-	students5_estimated INT,
+	students5_estimated integer,
 	primary key(year, iau_id1)	
 );
