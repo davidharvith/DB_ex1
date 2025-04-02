@@ -9,8 +9,8 @@ create table incomegroup(
 create table country(
 	 countrycode varchar(3) primary key,
 	country varchar(60) unique not null,
-	 region varchar,
 	 incomegroup varchar,
+	 region varchar,
 	 foreign key (incomegroup) references incomegroup(incomegroup),
 	 foreign key (region) references region(regionname)
 );
