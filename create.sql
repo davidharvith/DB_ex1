@@ -28,7 +28,7 @@ create table University(
 	private01 BOOLEAN not null,
 	country varchar not null,
 	specialized BOOLEAN not null,
-	foreign key (country) references country(country),
+	foreign key (country) references country(country)
 );
 
 
