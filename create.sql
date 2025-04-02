@@ -34,8 +34,8 @@ create table University(
 
 
 create table acceptence_data(
-	year integer,
 	iau_id1 varchar references University(iau_id1),
+	year integer,
 	students5_estimated integer,
 	primary key(year, iau_id1)	
 );
